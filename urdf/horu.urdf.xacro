@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!-- TO-DO -->
+<!-- change sizes -->
+<!-- change inertia -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="horu">
+
+    <xacro:include filename="horu_include.xacro"/>
+
+    <xacro:property name="pi" value="3.1415926"/>
+    <xacro:property name="sqrt_2" value="1.41421356"/>
+
+    <!-- SIZES -->
+
+    <xacro:property name="prism_width" value="0.05"/>
+ 
+    <xacro:property name="base_x" value="1.0"/>
+    <xacro:property name="base_y" value="0.6"/>
+    <xacro:property name="base_z" value="0.4"/>
+
+    <xacro:property name="rear_cyl_l" value="0.05"/>
+    <xacro:property name="rear_cyl_r" value="0.025"/>
+    <xacro:property name="rear_width" value="0.6"/>
+
+    <xacro:property name="axle_height" value="0.4"/>
+
+    <xacro:property name="wheel_width" value="0.1"/>
+    <xacro:property name="wheel_radius" value="0.1"/>
+    
+
+    <!-- INERTIA -->
+
+
+    <!-- LINKS -->
+
+    <link name="dummy_link">
+    </link>
+
+    <link name="base_link"> 
+        <visual>
+            <geometry>
+                <box size="${base_x} ${base_y} ${base_z}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${base_x} ${base_y} ${base_z}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1.0"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.021" iyz="0.0" izz="0.1"/>
+        </inertial>
+    </link>
+
+    <link name="front_left_axle_link">
+    </link>
+
+    <link name="front_right_axle_link">
+    </link>
+ 
+    
+    <!-- JOINTS -->
+
+    <joint name="dummy_joint" type="fixed">
+        <parent link="dummy_link"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    
+
+    <joint name="front_left_axle_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_left_axle_link"/>
+        <origin xyz="0.3 ${0.3+prism_width/2} -0.15" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="front_right_axle_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_right_axle_link"/>
+        <origin xyz="0.3 ${-(0.3+prism_width/2)} -0.15" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+
+    </robot>
+
+<!-- 
+EJECUTAR ESTA LINEA ANTES DE HACER catkin_make
+
+rosrun xacro xacro ~/rr_ros_ws/src/horu_sim/urdf/horu.urdf.xacro > ~/rr_ros_ws/src/horu_sim/urdf/horu.urdf
+
+check_urdf ~/rr_ros_ws/src/horu_sim/urdf/horu.urdf
+
+-->
