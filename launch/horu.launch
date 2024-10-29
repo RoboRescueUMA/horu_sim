@@ -1,15 +1,20 @@
 <launch>
 
-  <!-- Lanzar el servidor de Gazebo -->
+  <!-- Compila el URDF -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find horu_sim)/urdf/horu.urdf.xacro'" />
 
 
-  <!-- Spawn del modelo URDF en Gazebo -->
-  <node type="rviz" name="rviz" pkg="rviz"/>
 
-
-  <param name="robot_description" textfile="$(find horu_sim)/urdf/horu.urdf"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+  <!-- Publicar estados de las articulaciones -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <!-- <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/> -->
   
+  <!-- Publicar transformaciones de robot -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+
+  <!-- Lanzar RVIZ -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find horu_sim)/rviz/horu.rviz" required="true"/>
 
 </launch>

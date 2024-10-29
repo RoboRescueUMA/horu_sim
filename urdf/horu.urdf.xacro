@@ -6,7 +6,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="horu">
 
-    <xacro:include filename="horu_include.xacro"/>
+    <xacro:include filename="horu_include.urdf.xacro"/>
 
     <xacro:property name="pi" value="3.1415926"/>
     <xacro:property name="sqrt_2" value="1.41421356"/>
